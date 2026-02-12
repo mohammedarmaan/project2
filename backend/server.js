@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.js';
+import applicationRoutes from './routes/applications.js';
+import activityLogRoutes from './routes/activityLogs.js';
 
 dotenv.config();
 
@@ -29,10 +31,10 @@ app.use(session({
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
     collectionName: 'sessions',
-    ttl: 24 * 60 * 60 // 1 day
+    ttl: 24 * 60 * 60
   }),
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    maxAge: 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
@@ -41,6 +43,8 @@ app.use(session({
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/applications', applicationRoutes);
+app.use('/api/activity-logs', activityLogRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

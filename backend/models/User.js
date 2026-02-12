@@ -16,6 +16,9 @@ export const createUser = async (userData) => {
   };
   
   const result = await db.collection('users').insertOne(user);
+  if (!result.insertedId) {
+      throw new Error('Failed to insert user - no insertedId returned');
+    }
   return { ...user, _id: result.insertedId };
 };
 
