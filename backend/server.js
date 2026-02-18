@@ -9,6 +9,8 @@ import { connectDB, getClient } from './config/db.js';
 import authRoutes from './routes/auth.js';
 import applicationRoutes from './routes/applications.js';
 import activityLogRoutes from './routes/activityLogs.js';
+import networkRoutes from "./routes/network.js";
+
 
 dotenv.config();
 
@@ -59,6 +61,8 @@ const startServer = async () => {
     app.use('/api/auth', authRoutes);
     app.use('/api/applications', applicationRoutes);
     app.use('/api/activity-logs', activityLogRoutes);
+    app.use("/api/network", networkRoutes);
+
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
