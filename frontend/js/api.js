@@ -4,7 +4,8 @@
    Imported by: auth.js, tracker.js, network.js
    ============================================================ */
 
-const API = 'http://localhost:3000/api';
+// deployed backend link 
+const API = 'https://project2-cb5y.onrender.com';
 
 /* ----------------------------------------------------------
    Core fetch wrapper
