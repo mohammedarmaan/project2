@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- ── Sidebar ────────────────────────────────────────── -->
   <nav class="sidebar">
     <div class="brand">
       <div class="brand-icon">🧭</div>
@@ -21,7 +20,7 @@
     <a href="tracker.html" class="nav-item active">
       <span class="icon">📋</span> Applications
     </a>
-    <a href="#" title="network.html lives in your teammate's repo" class="nav-item">
+    <a href="network.html" title="network.html lives in your teammate's repo" class="nav-item">
       <span class="icon">🤝</span> Network
     </a>
 
@@ -37,7 +36,6 @@
     </div>
   </nav>
 
-  <!-- ── Main ───────────────────────────────────────────── -->
   <main class="main">
 
     <div class="page-header">
@@ -45,18 +43,14 @@
       <button class="btn btn-primary" onclick="openAddModal()">+ Add Application</button>
     </div>
 
-    <!-- ── Page tabs: Applications / Statistics ── -->
     <div class="page-tabs">
       <button class="page-tab active" id="tabApplications" onclick="switchPageTab('applications')">📋 Applications</button>
       <button class="page-tab"        id="tabStats"        onclick="switchPageTab('stats')">📊 Statistics</button>
     </div>
 
-    <!-- ═══════════════════════════════════════════
-         APPLICATIONS VIEW
-    ═══════════════════════════════════════════ -->
+
     <div id="viewApplications">
 
-      <!-- Quick stats row -->
       <div class="stats-grid">
         <div class="stat-card highlight">
           <div class="stat-label">Total Applied</div>
@@ -80,7 +74,6 @@
         </div>
       </div>
 
-      <!-- Filters -->
       <div class="filters-bar">
         <input class="filter-input" type="text" id="filterCompany" placeholder="🔍 Search company…" oninput="applyFilters()" />
         <select class="filter-select" id="filterStatus" onchange="applyFilters()">
@@ -103,7 +96,6 @@
         </select>
       </div>
 
-      <!-- Table -->
       <div class="table-wrapper">
         <table>
           <thead>
@@ -124,12 +116,9 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════
-         STATISTICS VIEW
-    ═══════════════════════════════════════════ -->
+
     <div id="viewStats" class="hidden">
 
-      <!-- Top KPI row -->
       <div class="stats-grid" style="margin-bottom:28px">
         <div class="stat-card highlight">
           <div class="stat-label">Total Applications</div>
@@ -155,25 +144,21 @@
 
       <div class="stats-two-col">
 
-        <!-- Status breakdown -->
         <div class="stats-panel">
           <div class="stats-panel-title">Applications by Status</div>
           <div id="statusBreakdown" class="breakdown-list"></div>
         </div>
 
-        <!-- Avg days per stage -->
         <div class="stats-panel">
           <div class="stats-panel-title">Avg. Days to Reach Stage</div>
           <div id="avgDaysBreakdown" class="breakdown-list"></div>
         </div>
 
-        <!-- Source breakdown -->
         <div class="stats-panel">
           <div class="stats-panel-title">Applications by Source</div>
           <div id="sourceBreakdown" class="breakdown-list"></div>
         </div>
 
-        <!-- Applications over time -->
         <div class="stats-panel">
           <div class="stats-panel-title">Applications Over Time</div>
           <div id="timelineChart" class="timeline-chart"></div>
@@ -184,7 +169,6 @@
 
   </main>
 
-  <!-- ── Add / Edit Application Modal ──────────────────── -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBackdrop(event,'modalOverlay')">
     <div class="modal">
       <div class="modal-header">
@@ -245,7 +229,6 @@
     </div>
   </div>
 
-  <!-- ── Contacts Modal ─────────────────────────────────── -->
   <div class="modal-overlay" id="contactsOverlay" onclick="closeModalOnBackdrop(event,'contactsOverlay')">
     <div class="modal modal-wide">
       <div class="modal-header">
@@ -256,10 +239,8 @@
         <button class="close-btn" onclick="closeModal('contactsOverlay')">✕</button>
       </div>
 
-      <!-- Existing contacts list -->
       <div id="contactsList" class="contacts-list"></div>
 
-      <!-- Link a network contact -->
       <div class="contacts-add-section">
         <div class="contacts-add-title">Link a Network Contact</div>
         <div class="contacts-add-row">
@@ -270,7 +251,6 @@
         </div>
       </div>
 
-      <!-- Add & link a brand new contact -->
       <details class="contacts-new-section">
         <summary>+ Add a new contact directly</summary>
         <div class="form-grid" style="margin-top:14px">

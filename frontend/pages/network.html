@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- ── Sidebar ────────────────────────────────────────── -->
   <nav class="sidebar">
     <div class="brand">
       <div class="brand-icon">🧭</div>
@@ -18,7 +17,7 @@
     </div>
 
     <div class="nav-section">Career</div>
-    <a href="#" title="tracker.html lives in your friend's repo" class="nav-item">
+    <a href="tracker.html" title="tracker.html lives in your friend's repo" class="nav-item">
       <span class="icon">📋</span> Applications
     </a>
     <a href="network.html" class="nav-item active">
@@ -37,7 +36,6 @@
     </div>
   </nav>
 
-  <!-- ── Main ───────────────────────────────────────────── -->
   <main class="main">
 
     <div class="page-header">
@@ -45,18 +43,14 @@
       <button class="btn btn-primary" onclick="openAddModal()">+ Add Contact</button>
     </div>
 
-    <!-- Page tabs -->
     <div class="page-tabs">
       <button class="page-tab active" id="tabContacts" onclick="switchPageTab('contacts')">🤝 Contacts</button>
       <button class="page-tab"        id="tabStats"    onclick="switchPageTab('stats')">📊 Statistics</button>
     </div>
 
-    <!-- ═══════════════════════════════════════════
-         CONTACTS VIEW
-    ═══════════════════════════════════════════ -->
+
     <div id="viewContacts">
 
-      <!-- Quick stats row -->
       <div class="stats-grid">
         <div class="stat-card highlight">
           <div class="stat-label">Total Contacts</div>
@@ -76,7 +70,6 @@
         </div>
       </div>
 
-      <!-- Filters -->
       <div class="filters-bar">
         <input class="filter-input"  type="text" id="filterName"    placeholder="🔍 Search name…"    oninput="applyFilters()" />
         <input class="filter-input"  type="text" id="filterCompany" placeholder="🏢 Search company…" oninput="applyFilters()" />
@@ -91,18 +84,13 @@
         </select>
       </div>
 
-      <!-- Cards grid -->
       <div class="contacts-grid" id="contactsGrid">
         <div class="loading-placeholder">⏳ Loading contacts…</div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════
-         STATISTICS VIEW
-    ═══════════════════════════════════════════ -->
     <div id="viewStats" class="hidden">
 
-      <!-- KPI row -->
       <div class="stats-grid" style="margin-bottom:28px">
         <div class="stat-card highlight">
           <div class="stat-label">Total Contacts</div>
@@ -124,13 +112,11 @@
 
       <div class="stats-two-col">
 
-        <!-- Contacts by company -->
         <div class="stats-panel">
           <div class="stats-panel-title">Contacts per Company</div>
           <div id="companyBreakdown" class="breakdown-list"></div>
         </div>
 
-        <!-- Contacts by meeting source -->
         <div class="stats-panel">
           <div class="stats-panel-title">Contacts by Meeting Source</div>
           <div id="metAtBreakdown" class="breakdown-list"></div>
@@ -141,7 +127,6 @@
 
   </main>
 
-  <!-- ── Add / Edit Modal ───────────────────────────────── -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBackdrop(event,'modalOverlay')">
     <div class="modal">
       <div class="modal-header">

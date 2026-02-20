@@ -48,7 +48,7 @@ async function getCurrentUser() {
 async function requireAuth() {
   const user = await getCurrentUser();
   if (!user) {
-    window.location.href = 'auth.html';
+    window.location.href = '../index.html';
     return null;
   }
   return user;
@@ -59,7 +59,7 @@ async function logout() {
   try {
     await apiFetch('/auth/logout', { method: 'POST' });
   } catch { /* ignore */ }
-  window.location.href = 'auth.html';
+  window.location.href = '../index.html';
 }
 
 /* ----------------------------------------------------------
