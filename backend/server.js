@@ -19,17 +19,18 @@ const PORT = process.env.PORT || 3000;
 // CORS configuration for frontend
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
-
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }),
+);
 
 // Middleware
 app.use(express.json());
@@ -49,8 +50,11 @@ app.use(
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      // secure: process.env.NODE_ENV === "production",
+      // sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      //hardcoding instead coz its not working idk why
+      secure: true,
+      sameSite: "none"
     },
   }),
 );
