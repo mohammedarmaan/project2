@@ -70,7 +70,7 @@ async function handleLogin(e) {
     });
 
     showMessage('loginMsg', '✓ Signed in successfully. Redirecting…', 'success');
-    setTimeout(() => { window.location.href = 'pages/tracker.html'; }, 1000);
+    setTimeout(() => { window.location.href = '/tracker'; }, 1000);
 
   } catch (err) {
     showMessage('loginMsg', err.message, 'error');
@@ -97,7 +97,7 @@ async function handleRegister(e) {
     });
 
     showMessage('registerMsg', '✓ Account created! Redirecting…', 'success');
-    setTimeout(() => { window.location.href = 'pages/tracker.html'; }, 1000);
+    setTimeout(() => { window.location.href = '/tracker'; }, 1000);
 
   } catch (err) {
     showMessage('registerMsg', err.message, 'error');
@@ -110,5 +110,5 @@ async function handleRegister(e) {
    ---------------------------------------------------------- */
 (async () => {
   const user = await getCurrentUser();
-  if (user) window.location.href = 'pages/tracker.html';
+  if (user) window.location.href = '/tracker';
 })();

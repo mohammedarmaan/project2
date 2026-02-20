@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/tracker", "destination": "/pages/tracker.html" },
+    { "source": "/network", "destination": "/pages/network.html" }
+  ]
+}
