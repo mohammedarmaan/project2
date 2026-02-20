@@ -261,8 +261,10 @@ router.put("/:id", isAuthenticated, async (req, res) => {
       const oldVal = existing[field];
       const newVal = updated[field];
 
-      const oldNorm = oldVal instanceof Date ? oldVal.toISOString() : oldVal ?? null;
-      const newNorm = newVal instanceof Date ? newVal.toISOString() : newVal ?? null;
+      const oldNorm =
+        oldVal instanceof Date ? oldVal.toISOString() : (oldVal ?? null);
+      const newNorm =
+        newVal instanceof Date ? newVal.toISOString() : (newVal ?? null);
 
       if (oldNorm !== newNorm && typeof newNorm !== "undefined") {
         await logActivity({
@@ -270,7 +272,11 @@ router.put("/:id", isAuthenticated, async (req, res) => {
           entityId: updated._id,
           entityName,
           action: "updated",
-          changes: { field, oldValue: oldVal ?? null, newValue: newVal ?? null },
+          changes: {
+            field,
+            oldValue: oldVal ?? null,
+            newValue: newVal ?? null,
+          },
           summary: `Updated ${updated.name}'s ${field}`,
         });
       }
@@ -282,7 +288,6 @@ router.put("/:id", isAuthenticated, async (req, res) => {
     return res.status(500).json({ error: "Failed to update contact" });
   }
 });
-
 
 /**
  * DELETE /api/network/:id

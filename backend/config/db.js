@@ -17,7 +17,7 @@ export const connectDB = async () => {
       .collection("applications")
       .createIndex(
         { userId: 1, company: 1, role: 1, dateApplied: 1 },
-        { unique: true }
+        { unique: true },
       );
     await db.collection("applications").createIndex({ status: 1 });
     await db.collection("applications").createIndex({ source: 1 });
@@ -64,36 +64,41 @@ export const connectDB = async () => {
 //   return db;
 // };
 
-const ensureIndexes = async (db) => {
-  await db.collection('users').createIndex({ email: 1 }, { unique: true });
+// const ensureIndexes = async (db) => {
+//   await db.collection("users").createIndex({ email: 1 }, { unique: true });
 
-  await db.collection('applications').createIndex(
-    { userId: 1, company: 1, role: 1, dateApplied: 1 },
-    { unique: true }
-  );
-  await db.collection('applications').createIndex({ status: 1 });
-  await db.collection('applications').createIndex({ source: 1 });
-  await db.collection('applications').createIndex({ dateApplied: -1 });
+//   await db
+//     .collection("applications")
+//     .createIndex(
+//       { userId: 1, company: 1, role: 1, dateApplied: 1 },
+//       { unique: true }
+//     );
+//   await db.collection("applications").createIndex({ status: 1 });
+//   await db.collection("applications").createIndex({ source: 1 });
+//   await db.collection("applications").createIndex({ dateApplied: -1 });
 
-  await db.collection('network').createIndex({ userId: 1 });
-  await db.collection('network').createIndex({ company: 1 });
-  await db.collection('network').createIndex({ name: 'text' });
-  await db.collection('network').createIndex({ metAt: 1 });
-  await db.collection('network').createIndex({ followUpDate: 1 });
+//   await db.collection("network").createIndex({ userId: 1 });
+//   await db.collection("network").createIndex({ company: 1 });
+//   await db.collection("network").createIndex({ name: "text" });
+//   await db.collection("network").createIndex({ metAt: 1 });
+//   await db.collection("network").createIndex({ followUpDate: 1 });
 
-  await db.collection('activityLogs').createIndex({ userId: 1, timestamp: -1 });
-  await db.collection('activityLogs').createIndex({ entityType: 1, timestamp: -1 });
-  await db.collection('activityLogs').createIndex({ entityId: 1 });
-  await db.collection('activityLogs').createIndex({ timestamp: -1 });
-};
+//   await db.collection("activityLogs").createIndex({ userId: 1, timestamp: -1 });
+//   await db
+//     .collection("activityLogs")
+//     .createIndex({ entityType: 1, timestamp: -1 });
+//   await db.collection("activityLogs").createIndex({ entityId: 1 });
+//   await db.collection("activityLogs").createIndex({ timestamp: -1 });
+// };
 
 export const getDB = () => {
-  if (!db) throw new Error('Database not initialized. Call connectDB first.');
+  if (!db) throw new Error("Database not initialized. Call connectDB first.");
   return db;
 };
 
 export const getClient = () => {
-  if (!client) throw new Error('Mongo client not initialized. Call connectDB first.');
+  if (!client)
+    throw new Error("Mongo client not initialized. Call connectDB first.");
   return client;
 };
 

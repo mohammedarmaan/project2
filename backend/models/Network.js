@@ -25,7 +25,9 @@ export const createNetworkContact = async (contactData) => {
   const db = getDB();
 
   if (contactData.metAt && !VALID_MET_AT.includes(contactData.metAt)) {
-    throw new Error(`Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`);
+    throw new Error(
+      `Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`,
+    );
   }
 
   const contact = {
@@ -37,7 +39,9 @@ export const createNetworkContact = async (contactData) => {
     metAt: contactData.metAt || "other",
     metDate: contactData.metDate ? new Date(contactData.metDate) : new Date(),
     notes: contactData.notes || "",
-    followUpDate: contactData.followUpDate ? new Date(contactData.followUpDate) : null,
+    followUpDate: contactData.followUpDate
+      ? new Date(contactData.followUpDate)
+      : null,
     lastContactedDate: contactData.lastContactedDate
       ? new Date(contactData.lastContactedDate)
       : null,
@@ -45,10 +49,14 @@ export const createNetworkContact = async (contactData) => {
     updatedAt: new Date(),
   };
 
-  if (Number.isNaN(contact.metDate.getTime())) throw new Error("Invalid metDate");
+  if (Number.isNaN(contact.metDate.getTime()))
+    throw new Error("Invalid metDate");
   if (contact.followUpDate && Number.isNaN(contact.followUpDate.getTime()))
     throw new Error("Invalid followUpDate");
-  if (contact.lastContactedDate && Number.isNaN(contact.lastContactedDate.getTime()))
+  if (
+    contact.lastContactedDate &&
+    Number.isNaN(contact.lastContactedDate.getTime())
+  )
     throw new Error("Invalid lastContactedDate");
 
   const result = await db.collection("network").insertOne(contact);
@@ -84,7 +92,9 @@ export const updateNetworkContact = async (contactId, userId, updateData) => {
   const db = getDB();
 
   if (updateData.metAt && !VALID_MET_AT.includes(updateData.metAt)) {
-    throw new Error(`Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`);
+    throw new Error(
+      `Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`,
+    );
   }
 
   const userIdStr = String(userId);
@@ -101,13 +111,18 @@ export const updateNetworkContact = async (contactId, userId, updateData) => {
   // Normalize dates
   if (update.metDate) update.metDate = new Date(update.metDate);
   if (update.followUpDate) update.followUpDate = new Date(update.followUpDate);
-  if (update.lastContactedDate) update.lastContactedDate = new Date(update.lastContactedDate);
+  if (update.lastContactedDate)
+    update.lastContactedDate = new Date(update.lastContactedDate);
 
   // Validate dates
-  if (update.metDate && Number.isNaN(update.metDate.getTime())) throw new Error("Invalid metDate");
+  if (update.metDate && Number.isNaN(update.metDate.getTime()))
+    throw new Error("Invalid metDate");
   if (update.followUpDate && Number.isNaN(update.followUpDate.getTime()))
     throw new Error("Invalid followUpDate");
-  if (update.lastContactedDate && Number.isNaN(update.lastContactedDate.getTime()))
+  if (
+    update.lastContactedDate &&
+    Number.isNaN(update.lastContactedDate.getTime())
+  )
     throw new Error("Invalid lastContactedDate");
 
   // Disallow protected fields
@@ -116,10 +131,12 @@ export const updateNetworkContact = async (contactId, userId, updateData) => {
   delete update.createdAt;
 
   // 1) Update
-  const updateResult = await db.collection("network").updateOne(
-    { _id: new ObjectId(contactId), userId: userIdMatch },
-    { $set: update }
-  );
+  const updateResult = await db
+    .collection("network")
+    .updateOne(
+      { _id: new ObjectId(contactId), userId: userIdMatch },
+      { $set: update },
+    );
 
   if (updateResult.matchedCount === 0) {
     return null; // not found / not owned
@@ -131,7 +148,6 @@ export const updateNetworkContact = async (contactId, userId, updateData) => {
     userId: userIdMatch,
   });
 };
-
 
 export const deleteNetworkContact = async (contactId, userId) => {
   const db = getDB();
@@ -149,7 +165,9 @@ export const getNetworkStats = async (userId) => {
 
   const userMatch = buildUserIdMatch(userId);
 
-  const total = await db.collection("network").countDocuments({ userId: userMatch });
+  const total = await db
+    .collection("network")
+    .countDocuments({ userId: userMatch });
 
   const byCompanyAgg = await db
     .collection("network")

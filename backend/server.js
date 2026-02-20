@@ -1,16 +1,15 @@
-import express from 'express';
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
-import dotenv from 'dotenv';
-import cors from 'cors';
+import express from "express";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import dotenv from "dotenv";
+import cors from "cors";
 
-import { connectDB, getClient } from './config/db.js';
+import { connectDB, getClient } from "./config/db.js";
 
-import authRoutes from './routes/auth.js';
-import applicationRoutes from './routes/applications.js';
-import activityLogRoutes from './routes/activityLogs.js';
+import authRoutes from "./routes/auth.js";
+import applicationRoutes from "./routes/applications.js";
+import activityLogRoutes from "./routes/activityLogs.js";
 import networkRoutes from "./routes/network.js";
-
 
 dotenv.config();
 
@@ -66,30 +65,31 @@ const startServer = async () => {
     await connectDB();
 
     // 2) Now the client exists, so session store can reuse it
-    app.use(session({
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: false,
-      store: MongoStore.create({
-        client: getClient(),
-        dbName: process.env.DB_NAME,
-        collectionName: 'sessions',
-        ttl: 24 * 60 * 60
+    app.use(
+      session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        store: MongoStore.create({
+          client: getClient(),
+          dbName: process.env.DB_NAME,
+          collectionName: "sessions",
+          ttl: 24 * 60 * 60,
+        }),
+        cookie: {
+          maxAge: 24 * 60 * 60 * 1000,
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        },
       }),
-      cookie: {
-        maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-      }
-    }));
+    );
 
     // 3) Routes AFTER session middleware (so req.session is available)
-    app.use('/api/auth', authRoutes);
-    app.use('/api/applications', applicationRoutes);
-    app.use('/api/activity-logs', activityLogRoutes);
+    app.use("/api/auth", authRoutes);
+    app.use("/api/applications", applicationRoutes);
+    app.use("/api/activity-logs", activityLogRoutes);
     app.use("/api/network", networkRoutes);
-
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
