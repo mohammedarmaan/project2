@@ -105,8 +105,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    
-
     const application = await createApplication({
       userId: req.session.userId,
       company,
@@ -198,8 +196,8 @@ router.put("/:id", async (req, res) => {
     });
   } catch (error) {
     console.error("Update application error:", error);
-    
-     if (error.message.includes('Invalid status')) {
+
+    if (error.message.includes("Invalid status")) {
       return res.status(400).json({ error: error.message });
     }
     res.status(500).json({ error: "Failed to update application" });

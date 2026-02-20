@@ -86,7 +86,9 @@ export const updateApplication = async (applicationId, userId, updateData) => {
 
   // validation for status
   if (updateData.status && !VALID_STATUSES.includes(updateData.status)) {
-    throw new Error(`Invalid status. Must be one of: ${VALID_STATUSES.join(', ')}`);
+    throw new Error(
+      `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}`,
+    );
   }
 
   const update = {
@@ -148,7 +150,7 @@ export const getApplicationStats = async (userId) => {
             $sum: {
               $cond: [
                 {
-                  $in: ["$status", VALID_STATUSES]
+                  $in: ["$status", VALID_STATUSES],
                 },
                 1,
                 0,
