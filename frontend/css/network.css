@@ -1,0 +1,215 @@
+/* ============================================================
+   network.css — Nexus Career Platform
+   Styles specific to the Network contacts page.
+   Requires: shared.css
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   Contact card grid
+   ---------------------------------------------------------- */
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+/* ----------------------------------------------------------
+   Individual contact card
+   ---------------------------------------------------------- */
+.contact-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  position: relative;
+  animation: fadeUp 0.4s ease both;
+  border: 1.5px solid transparent;
+}
+
+.contact-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: rgba(201, 168, 76, 0.2);
+}
+
+/* Card header: avatar + name/role/company */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.contact-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy-mid), var(--slate));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 17px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  flex-shrink: 0;
+}
+
+.contact-info { flex: 1; min-width: 0; }
+
+.contact-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.contact-role {
+  font-size: 13px;
+  color: var(--text-mid);
+}
+
+.contact-company {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* Edit / delete actions — appear on card hover */
+.card-actions {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.contact-card:hover .card-actions {
+  opacity: 1;
+}
+
+/* Override icon-btn background so it sits clearly on white card */
+.card-actions .icon-btn {
+  background: var(--white);
+}
+
+/* Horizontal rule inside card */
+.card-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 14px 0;
+}
+
+/* 2-col meta grid (email, met date, follow-up, last contact) */
+.card-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+}
+
+.meta-value {
+  font-size: 12px;
+  color: var(--text-mid);
+}
+
+.meta-value a {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.meta-value a:hover {
+  text-decoration: underline;
+}
+
+/* ----------------------------------------------------------
+   Badges
+   ---------------------------------------------------------- */
+
+/* "Met at" source badge */
+.met-at-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(201, 168, 76, 0.1);
+  color: var(--gold);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  margin-bottom: 10px;
+}
+
+/* Follow-up date badge — colour-coded by urgency */
+.followup-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.followup-overdue { background: rgba(220, 38, 38, 0.08); color: #dc2626; }
+.followup-soon    { background: rgba(217,119,  6, 0.08); color: #d97706; }
+.followup-ok      { background: rgba(  5,150,105, 0.08); color: #059669; }
+
+/* ----------------------------------------------------------
+   Notes preview (truncated, italic)
+   ---------------------------------------------------------- */
+.notes-preview {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 10px;
+  font-style: italic;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ----------------------------------------------------------
+   Loading placeholder (full grid width)
+   ---------------------------------------------------------- */
+.loading-placeholder {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px;
+  color: var(--text-light);
+  font-size: 14px;
+  background: var(--white);
+  border-radius: 14px;
+}
+
+/* Empty state fills the whole grid */
+.contacts-grid .empty-state {
+  grid-column: 1 / -1;
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  padding: 72px 20px;
+}
+
+/* ----------------------------------------------------------
+   Wider modal for network form (more fields)
+   ---------------------------------------------------------- */
+#modalOverlay .modal {
+  width: 580px;
+}
