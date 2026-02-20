@@ -16,7 +16,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS configuration for frontend
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
 
 app.use(
@@ -32,50 +31,13 @@ app.use(
   }),
 );
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session configuration
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI,
-      collectionName: "sessions",
-      ttl: 24 * 60 * 60,
-    }),
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      // secure: process.env.NODE_ENV === "production",
-      // sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      //hardcoding instead coz its not working idk why
-      secure: true,
-      sameSite: "none"
-    },
-  }),
-);
-
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/applications", applicationRoutes);
-app.use("/api/activity-logs", activityLogRoutes);
-
-// Health check
-app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
-});
-
-// Start server
 const startServer = async () => {
   try {
-    // 1) Connect DB FIRST (initializes MongoClient)
     await connectDB();
 
-    // 2) Now the client exists, so session store can reuse it
     app.use(
       session({
         secret: process.env.SESSION_SECRET,
@@ -83,28 +45,29 @@ const startServer = async () => {
         saveUninitialized: false,
         store: MongoStore.create({
           client: getClient(),
-          dbName: process.env.DB_NAME,
           collectionName: "sessions",
           ttl: 24 * 60 * 60,
         }),
         cookie: {
           maxAge: 24 * 60 * 60 * 1000,
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          secure: true,
+          sameSite: "none",
+          // secure: process.env.NODE_ENV === "production",
+          // sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          //hardcoding instead coz its not working idk why
         },
       }),
     );
 
-    // 3) Routes AFTER session middleware (so req.session is available)
     app.use("/api/auth", authRoutes);
     app.use("/api/applications", applicationRoutes);
     app.use("/api/activity-logs", activityLogRoutes);
     app.use("/api/network", networkRoutes);
 
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
+    app.get("/health", (req, res) => res.json({ status: "ok" }));
+
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (error) {
     console.error("Failed to start server:", error);
     process.exit(1);
