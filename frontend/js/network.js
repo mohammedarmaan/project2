@@ -1,5 +1,5 @@
 /* ============================================================
-   network.js — Nexus Career Platform
+   network.js — Momentum Career Platform
    Handles: contacts CRUD, statistics (total, byCompany,
             byMetAt, follow-ups due).
    Depends on: api.js

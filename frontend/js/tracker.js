@@ -1,5 +1,5 @@
 /* ============================================================
-   tracker.js — Nexus Career Platform
+   tracker.js — Momentum Career Platform
    Handles: applications CRUD, contacts per application,
             statistics dashboard (status, source, avg days,
             response rate, rejection rate, timeline).
