@@ -1,5 +1,5 @@
 /* ============================================================
-   api.js — Nexus Career Platform
+   api.js — Momentum Career Platform
    Shared fetch helpers and auth utilities.
    Imported by: auth.js, tracker.js, network.js
    ============================================================ */

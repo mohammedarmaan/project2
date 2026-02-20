@@ -1,4 +1,4 @@
-# Nexus Frontend — Auth & Network
+# Momentum Frontend — Auth & Network
 > **Owner: You**
 
 ## Your files

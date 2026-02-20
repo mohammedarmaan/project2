@@ -1,0 +1,108 @@
+/* ============================================================
+   tracker.css — Momentum Career Platform
+   Styles specific to the Application Tracker page.
+   Requires: shared.css
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   Status badge
+   ---------------------------------------------------------- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Dot before text */
+.status-badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.badge-applied      { color: #2563eb; background: rgba(37,  99, 235, 0.08); }
+.badge-screening    { color: #7c3aed; background: rgba(124, 58, 237, 0.08); }
+.badge-interviewing { color: #d97706; background: rgba(217,119,   6, 0.08); }
+.badge-offer        { color: #059669; background: rgba(  5,150, 105, 0.08); }
+.badge-rejected     { color: #dc2626; background: rgba(220, 38,  38, 0.08); }
+.badge-withdrawn    { color: #6b7280; background: rgba(107,114, 128, 0.08); }
+
+/* ----------------------------------------------------------
+   Applications table
+   ---------------------------------------------------------- */
+.table-wrapper {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: var(--navy);
+}
+
+thead th {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(201, 168, 76, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: rgba(201, 168, 76, 0.04);
+}
+
+tbody td {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.company-cell { font-weight: 600; }
+.role-cell    { color: var(--text-mid); }
+
+/* Row action buttons group */
+.action-group {
+  display: flex;
+  gap: 6px;
+}
+
+/* Loading / empty row inside table */
+.loading-row td {
+  text-align: center;
+  padding: 48px;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+/* Empty state inside table cell */
+.loading-row .empty-state {
+  padding: 48px 20px;
+}

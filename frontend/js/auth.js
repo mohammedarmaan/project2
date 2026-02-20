@@ -1,5 +1,5 @@
 /* ============================================================
-   auth.js — Nexus Career Platform
+   auth.js — Momentum Career Platform
    Handles login, registration, and tab switching on auth.html.
    Depends on: api.js (loaded before this script)
    ============================================================ */

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Momentum — Application Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/shared.css">
+  <link rel="stylesheet" href="../css/tracker.css">
+</head>
+<body>
+
+  <!-- ── Sidebar ────────────────────────────────────────── -->
+  <nav class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🧭</div>
+      <span class="brand-name">Momentum</span>
+    </div>
+
+    <div class="nav-section">Career</div>
+    <a href="tracker.html" class="nav-item active">
+      <span class="icon">📋</span> Applications
+    </a>
+    <a href="#" title="network.html lives in your teammate's repo" class="nav-item">
+      <span class="icon">🤝</span> Network
+    </a>
+
+    <div class="nav-bottom">
+      <div class="user-card">
+        <div class="user-avatar" id="userAvatar">—</div>
+        <div class="user-info">
+          <div class="user-name" id="userName">Loading…</div>
+          <div class="user-role">Job Seeker</div>
+        </div>
+      </div>
+      <!-- logout-btn click is wired in api.js → initSidebar() -->
+      <button class="logout-btn">
+        <span>↩</span> Sign Out
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Main content ───────────────────────────────────── -->
+  <main class="main">
+
+    <div class="page-header">
+      <h1 class="page-title">Applications <span id="appCount"></span></h1>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Add Application</button>
+    </div>
+
+    <!-- Stats row -->
+    <div class="stats-grid">
+      <div class="stat-card highlight">
+        <div class="stat-label">Total Applied</div>
+        <div class="stat-value" id="statTotal">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Interviewing</div>
+        <div class="stat-value" id="statInterviewing">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Offers</div>
+        <div class="stat-value" id="statOffer">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Streak 🔥</div>
+        <div class="stat-value" id="statStreak">—</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-bar">
+      <input class="filter-input"  type="text" id="filterCompany" placeholder="🔍 Search company…" oninput="applyFilters()" />
+      <select class="filter-select" id="filterStatus" onchange="applyFilters()">
+        <option value="">All Statuses</option>
+        <option value="applied">Applied</option>
+        <option value="screening">Screening</option>
+        <option value="interviewing">Interviewing</option>
+        <option value="offer">Offer</option>
+        <option value="rejected">Rejected</option>
+        <option value="withdrawn">Withdrawn</option>
+      </select>
+      <select class="filter-select" id="filterSource" onchange="applyFilters()">
+        <option value="">All Sources</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="company_website">Company Website</option>
+        <option value="referral">Referral</option>
+        <option value="job_board">Job Board</option>
+        <option value="recruiter">Recruiter</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <!-- Applications table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Source</th>
+            <th>Date Applied</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="appTableBody">
+          <tr class="loading-row">
+            <td colspan="6"><span class="spinner"></span> Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- ── Add / Edit Modal ───────────────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBackdrop(event, 'modalOverlay')">
+    <div class="modal">
+
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Add Application</h2>
+        <button class="close-btn" onclick="closeModal('modalOverlay')">✕</button>
+      </div>
+
+      <form id="appForm" onsubmit="handleSubmit(event)">
+        <input type="hidden" id="editId" />
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Company *</label>
+            <input class="form-control" id="fCompany" placeholder="Acme Corp" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role *</label>
+            <input class="form-control" id="fRole" placeholder="Software Engineer" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-control" id="fStatus">
+              <option value="applied">Applied</option>
+              <option value="screening">Screening</option>
+              <option value="interviewing">Interviewing</option>
+              <option value="offer">Offer</option>
+              <option value="rejected">Rejected</option>
+              <option value="withdrawn">Withdrawn</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Source</label>
+            <select class="form-control" id="fSource">
+              <option value="linkedin">LinkedIn</option>
+              <option value="company_website">Company Website</option>
+              <option value="referral">Referral</option>
+              <option value="job_board">Job Board</option>
+              <option value="recruiter">Recruiter</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date Applied *</label>
+            <input class="form-control" type="date" id="fDate" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Salary Range</label>
+            <input class="form-control" id="fSalary" placeholder="e.g. 90k–120k" />
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Notes</label>
+            <textarea class="form-control" id="fNotes" rows="3"
+              placeholder="Any notes about the role, recruiter, etc."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('modalOverlay')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">Save Application</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- api.js first, then page-specific logic -->
+  <script src="../js/api.js"></script>
+  <script src="../js/tracker.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* ============================================================
-   network.js — Nexus Career Platform
+   network.js — Momentum Career Platform
    Network contacts: load, render, filter, add, edit, delete.
    Depends on: api.js (loaded before this script)
    ============================================================ */
