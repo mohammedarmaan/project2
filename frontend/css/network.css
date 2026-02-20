@@ -1,8 +1,40 @@
 /* ============================================================
-   network.css — Momentum Career Platform
-   Styles specific to the Network contacts page.
+   network.css — Nexus Career Platform
    Requires: shared.css
    ============================================================ */
+
+/* ----------------------------------------------------------
+   Page-level tabs (Contacts | Statistics)
+   ---------------------------------------------------------- */
+.page-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 24px;
+  width: fit-content;
+  box-shadow: var(--shadow-sm);
+}
+
+.page-tab {
+  padding: 9px 20px;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.page-tab.active {
+  background: var(--navy);
+  color: var(--cream);
+  box-shadow: 0 2px 8px rgba(10,22,40,0.2);
+}
 
 /* ----------------------------------------------------------
    Contact card grid
@@ -30,10 +62,9 @@
 .contact-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
-  border-color: rgba(201, 168, 76, 0.2);
+  border-color: rgba(201,168,76,0.2);
 }
 
-/* Card header: avatar + name/role/company */
 .card-header {
   display: flex;
   align-items: flex-start;
@@ -42,13 +73,10 @@
 }
 
 .contact-avatar {
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--navy-mid), var(--slate));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   color: var(--gold);
   font-size: 17px;
   font-weight: 700;
@@ -57,92 +85,36 @@
 }
 
 .contact-info { flex: 1; min-width: 0; }
+.contact-name    { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+.contact-role    { font-size: 13px; color: var(--text-mid); }
+.contact-company { font-size: 12px; color: var(--text-light); font-weight: 500; }
 
-.contact-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 2px;
-}
-
-.contact-role {
-  font-size: 13px;
-  color: var(--text-mid);
-}
-
-.contact-company {
-  font-size: 12px;
-  color: var(--text-light);
-  font-weight: 500;
-}
-
-/* Edit / delete actions — appear on card hover */
+/* Edit/delete hover actions */
 .card-actions {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  gap: 6px;
+  top: 16px; right: 16px;
+  display: flex; gap: 6px;
   opacity: 0;
   transition: opacity 0.2s;
 }
+.contact-card:hover .card-actions { opacity: 1; }
+.card-actions .icon-btn { background: var(--white); }
 
-.contact-card:hover .card-actions {
-  opacity: 1;
-}
+.card-divider { height: 1px; background: var(--border); margin: 14px 0; }
 
-/* Override icon-btn background so it sits clearly on white card */
-.card-actions .icon-btn {
-  background: var(--white);
-}
-
-/* Horizontal rule inside card */
-.card-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 14px 0;
-}
-
-/* 2-col meta grid (email, met date, follow-up, last contact) */
 .card-meta {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
-.meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+.meta-item   { display: flex; flex-direction: column; gap: 2px; }
+.meta-label  { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-light); }
+.meta-value  { font-size: 12px; color: var(--text-mid); }
+.meta-value a { color: var(--navy); text-decoration: none; }
+.meta-value a:hover { text-decoration: underline; }
 
-.meta-label {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-light);
-}
-
-.meta-value {
-  font-size: 12px;
-  color: var(--text-mid);
-}
-
-.meta-value a {
-  color: var(--navy);
-  text-decoration: none;
-}
-
-.meta-value a:hover {
-  text-decoration: underline;
-}
-
-/* ----------------------------------------------------------
-   Badges
-   ---------------------------------------------------------- */
-
-/* "Met at" source badge */
+/* Source badge */
 .met-at-badge {
   display: inline-flex;
   align-items: center;
@@ -150,30 +122,18 @@
   border-radius: 100px;
   font-size: 11px;
   font-weight: 600;
-  background: rgba(201, 168, 76, 0.1);
+  background: rgba(201,168,76,0.1);
   color: var(--gold);
-  border: 1px solid rgba(201, 168, 76, 0.25);
+  border: 1px solid rgba(201,168,76,0.25);
   margin-bottom: 10px;
 }
 
-/* Follow-up date badge — colour-coded by urgency */
-.followup-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 600;
-}
+/* Follow-up urgency badges */
+.followup-badge        { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+.followup-overdue      { background: rgba(220,38,38,0.08);  color: #dc2626; }
+.followup-soon         { background: rgba(217,119,6,0.08);  color: #d97706; }
+.followup-ok           { background: rgba(5,150,105,0.08);  color: #059669; }
 
-.followup-overdue { background: rgba(220, 38, 38, 0.08); color: #dc2626; }
-.followup-soon    { background: rgba(217,119,  6, 0.08); color: #d97706; }
-.followup-ok      { background: rgba(  5,150,105, 0.08); color: #059669; }
-
-/* ----------------------------------------------------------
-   Notes preview (truncated, italic)
-   ---------------------------------------------------------- */
 .notes-preview {
   font-size: 12px;
   color: var(--text-light);
@@ -185,9 +145,7 @@
   text-overflow: ellipsis;
 }
 
-/* ----------------------------------------------------------
-   Loading placeholder (full grid width)
-   ---------------------------------------------------------- */
+/* Loading / empty states */
 .loading-placeholder {
   grid-column: 1 / -1;
   text-align: center;
@@ -198,7 +156,6 @@
   border-radius: 14px;
 }
 
-/* Empty state fills the whole grid */
 .contacts-grid .empty-state {
   grid-column: 1 / -1;
   background: var(--white);
@@ -208,8 +165,73 @@
 }
 
 /* ----------------------------------------------------------
-   Wider modal for network form (more fields)
+   Statistics view
    ---------------------------------------------------------- */
-#modalOverlay .modal {
-  width: 580px;
+.stats-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.stats-panel {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.stats-panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  color: var(--text-dark);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Breakdown rows */
+.breakdown-list  { display: flex; flex-direction: column; gap: 10px; }
+
+.breakdown-row { display: flex; flex-direction: column; gap: 4px; }
+
+.breakdown-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.breakdown-label { font-size: 13px; color: var(--text-dark); font-weight: 500; }
+.breakdown-value { font-size: 13px; font-weight: 700; color: var(--navy); }
+
+.breakdown-bar-track {
+  height: 6px;
+  background: var(--off-white);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.breakdown-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--navy), var(--slate));
+  transition: width 0.6s ease;
+}
+
+/* Source-specific colours */
+.breakdown-bar-fill.linkedin      { background: #0077b5; }
+.breakdown-bar-fill.career_fair   { background: #7c3aed; }
+.breakdown-bar-fill.meetup        { background: #d97706; }
+.breakdown-bar-fill.referral      { background: #059669; }
+.breakdown-bar-fill.cold_outreach { background: #2563eb; }
+.breakdown-bar-fill.other         { background: #6b7280; }
+
+.stats-empty {
+  text-align: center;
+  padding: 32px 0;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .stats-two-col { grid-template-columns: 1fr; }
 }
