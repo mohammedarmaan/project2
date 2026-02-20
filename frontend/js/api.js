@@ -5,7 +5,7 @@
    ============================================================ */
 
 // deployed backend link 
-const API = 'https://project2-cb5y.onrender.com';
+const API = 'https://project2-cb5y.onrender.com/api';
 
 /* ----------------------------------------------------------
    Core fetch wrapper
