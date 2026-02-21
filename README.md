@@ -2,12 +2,12 @@
 
 ## Authors
 **Armaan** — Graduate Student @ Northeastern University
-- 🐙 GitHub: [github.com/Armaan](https://github.com/Armaan)
-- 📧 Email: armaan@northeastern.edu
+- 🌐 Portfolio: [mohammedarmaan.github.io](https://mohammedarmaan.github.io/personal/)
+- 🐙 GitHub: [github.com/mohammedarmaan](https://github.com/mohammedarmaan)
+- 📧 Email: lnu.mohammedar@northeastern.edu
 
 **Sankar Sudheer Ayachitula** — Graduate Student @ Northeastern University
 - 🌐 Portfolio: [sankar-ayachitu.github.io](https://sankar-ayachitu.github.io)
-- 💼 LinkedIn: [linkedin.com/in/sankar-sudheer-ayachitula](https://linkedin.com/in/sankar-sudheer-ayachitula)
 - 🐙 GitHub: [github.com/Sankar-Ayachitula](https://github.com/Sankar-Ayachitula)
 - 📧 Email: sankarayachitula@gmail.com
 
