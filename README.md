@@ -47,7 +47,7 @@ The project emphasizes clean REST API design, modular JavaScript, session-based 
 
 ## Design Document
 
-View the design document for this project: [Design_document.pdf](https://drive.google.com/file/d/1BFpDImZw6pBPZ7MNggrtCciK1XdL0LlZ/view?usp=sharing)
+View the design document for this project: [Design_document.pdf](https://github.com/mohammedarmaan/project2/blob/master/assets/Design%20Document.pdf)
 
 ### Home / Auth Page:
 <img width="2938" height="1460" alt="image" src="https://github.com/user-attachments/assets/5d47d46a-84f8-4933-a9cc-2cca54da4fb5" />
