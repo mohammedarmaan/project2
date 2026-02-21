@@ -1,301 +1,386 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Momentum — Application Tracker</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/shared.css">
-  <link rel="stylesheet" href="../css/tracker.css">
-</head>
-<body>
-
-  <nav class="sidebar">
-    <div class="brand">
-      <div class="brand-icon"></div>
-      <span class="brand-name">Momentum</span>
-    </div>
-
-    <div class="nav-section">Career</div>
-    <a href="/tracker" class="nav-item active">
-     Applications
-    </a>
-    <a href="/network" title="network.html lives in your teammate's repo" class="nav-item">
-      Network
-    </a>
-
-    <div class="nav-bottom">
-      <div class="user-card">
-        <div class="user-avatar" id="userAvatar">—</div>
-        <div class="user-info">
-          <div class="user-name" id="userName">Loading…</div>
-          <div class="user-role">Job Seeker</div>
-        </div>
-      </div>
-      <button class="logout-btn"><span>↩</span> Sign Out</button>
-    </div>
-  </nav>
-
-  <main class="main">
-
-    <div class="page-header">
-      <h1 class="page-title">Applications <span id="appCount"></span></h1>
-      <button class="btn btn-primary" onclick="openAddModal()">+ Add Application</button>
-    </div>
-
-    <div class="page-tabs">
-      <button class="page-tab active" id="tabApplications" onclick="switchPageTab('applications')">Applications</button>
-      <button class="page-tab"        id="tabStats"        onclick="switchPageTab('stats')">Statistics</button>
-    </div>
-
-
-    <div id="viewApplications">
-
-      <div class="stats-grid">
-        <div class="stat-card highlight">
-          <div class="stat-label">Total Applied</div>
-          <div class="stat-value" id="statTotal">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Interviewing</div>
-          <div class="stat-value" id="statInterviewing">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Offers</div>
-          <div class="stat-value" id="statOffer">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Rejected</div>
-          <div class="stat-value" id="statRejected">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Streak </div>
-          <div class="stat-value" id="statStreak">—</div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momentum — Application Tracker</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/shared.css" />
+    <link rel="stylesheet" href="../css/tracker.css" />
+  </head>
+  <body>
+    <nav class="sidebar">
+      <div class="brand">
+        <span class="brand-name">Momentum</span>
       </div>
 
-      <div class="filters-bar">
-        <input class="filter-input" type="text" id="filterCompany" placeholder="🔍 Search company…" oninput="applyFilters()" />
-        <select class="filter-select" id="filterStatus" onchange="applyFilters()">
-          <option value="">All Statuses</option>
-          <option value="applied">Applied</option>
-          <option value="screening">Screening</option>
-          <option value="interviewing">Interviewing</option>
-          <option value="offer">Offer</option>
-          <option value="rejected">Rejected</option>
-          <option value="withdrawn">Withdrawn</option>
-        </select>
-        <select class="filter-select" id="filterSource" onchange="applyFilters()">
-          <option value="">All Sources</option>
-          <option value="linkedin">LinkedIn</option>
-          <option value="company_website">Company Website</option>
-          <option value="referral">Referral</option>
-          <option value="job_board">Job Board</option>
-          <option value="recruiter">Recruiter</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
+      <div class="nav-section">Career</div>
+      <a href="/tracker" class="nav-item active"> Applications </a>
+      <a
+        href="/network"
+        title="network.html lives in your teammate's repo"
+        class="nav-item"
+      >
+        Network
+      </a>
 
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Company</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Source</th>
-              <th>Date Applied</th>
-              <th>Contacts</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="appTableBody">
-            <tr class="loading-row"><td colspan="7"><span class="spinner"></span> Loading…</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-
-    <div id="viewStats" class="hidden">
-
-      <div class="stats-grid" style="margin-bottom:28px">
-        <div class="stat-card highlight">
-          <div class="stat-label">Total Applications</div>
-          <div class="stat-value" id="s_total">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Response Rate</div>
-          <div class="stat-value" id="s_responseRate">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Rejection Rate</div>
-          <div class="stat-value" id="s_rejectionRate">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Offer Rate</div>
-          <div class="stat-value" id="s_offerRate">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Longest Streak</div>
-          <div class="stat-value" id="s_longestStreak">—</div>
-        </div>
-      </div>
-
-      <div class="stats-two-col">
-
-        <div class="stats-panel">
-          <div class="stats-panel-title">Applications by Status</div>
-          <div id="statusBreakdown" class="breakdown-list"></div>
-        </div>
-
-        <div class="stats-panel">
-          <div class="stats-panel-title">Avg. Days to Reach Stage</div>
-          <div id="avgDaysBreakdown" class="breakdown-list"></div>
-        </div>
-
-        <div class="stats-panel">
-          <div class="stats-panel-title">Applications by Source</div>
-          <div id="sourceBreakdown" class="breakdown-list"></div>
-        </div>
-
-        <div class="stats-panel">
-          <div class="stats-panel-title">Applications Over Time</div>
-          <div id="timelineChart" class="timeline-chart"></div>
-        </div>
-
-      </div>
-    </div>
-
-  </main>
-
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBackdrop(event,'modalOverlay')">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle">Add Application</h2>
-        <button class="close-btn" onclick="closeModal('modalOverlay')">✕</button>
-      </div>
-      <form id="appForm" onsubmit="handleSubmit(event)">
-        <input type="hidden" id="editId" />
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Company *</label>
-            <input class="form-control" id="fCompany" placeholder="Acme Corp" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Role *</label>
-            <input class="form-control" id="fRole" placeholder="Software Engineer" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Status</label>
-            <select class="form-control" id="fStatus">
-              <option value="applied">Applied</option>
-              <option value="screening">Screening</option>
-              <option value="interviewing">Interviewing</option>
-              <option value="offer">Offer</option>
-              <option value="rejected">Rejected</option>
-              <option value="withdrawn">Withdrawn</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Source</label>
-            <select class="form-control" id="fSource">
-              <option value="linkedin">LinkedIn</option>
-              <option value="company_website">Company Website</option>
-              <option value="referral">Referral</option>
-              <option value="job_board">Job Board</option>
-              <option value="recruiter">Recruiter</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Date Applied *</label>
-            <input class="form-control" type="date" id="fDate" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Salary Range</label>
-            <input class="form-control" id="fSalary" placeholder="e.g. 90k–120k" />
-          </div>
-          <div class="form-group full">
-            <label class="form-label">Notes</label>
-            <textarea class="form-control" id="fNotes" rows="3" placeholder="Any notes about the role, recruiter, etc."></textarea>
+      <div class="nav-bottom">
+        <div class="user-card">
+          <div class="user-avatar" id="userAvatar">—</div>
+          <div class="user-info">
+            <div class="user-name" id="userName">Loading…</div>
+            <div class="user-role">Job Seeker</div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-ghost" onclick="closeModal('modalOverlay')">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="submitBtn">Save Application</button>
-        </div>
-      </form>
-    </div>
-  </div>
+        <button class="logout-btn"><span>↩</span> Sign Out</button>
+      </div>
+    </nav>
 
-  <div class="modal-overlay" id="contactsOverlay" onclick="closeModalOnBackdrop(event,'contactsOverlay')">
-    <div class="modal modal-wide">
-      <div class="modal-header">
-        <div>
-          <h2 class="modal-title" id="contactsModalTitle">Contacts</h2>
-          <p class="modal-subtitle" id="contactsModalSub"></p>
-        </div>
-        <button class="close-btn" onclick="closeModal('contactsOverlay')">✕</button>
+    <main class="main">
+      <div class="page-header">
+        <h1 class="page-title">Applications <span id="appCount"></span></h1>
+        <button class="btn btn-primary" onclick="openAddModal()">
+          + Add Application
+        </button>
       </div>
 
-      <div id="contactsList" class="contacts-list"></div>
+      <div class="page-tabs">
+        <button
+          class="page-tab active"
+          id="tabApplications"
+          onclick="switchPageTab('applications')"
+        >
+          Applications
+        </button>
+        <button class="page-tab" id="tabStats" onclick="switchPageTab('stats')">
+          Statistics
+        </button>
+      </div>
 
-      <div class="contacts-add-section">
-        <div class="contacts-add-title">Link a Network Contact</div>
-        <div class="contacts-add-row">
-          <select class="form-control" id="contactPickerSelect">
-            <option value="">— Choose from your network —</option>
+      <div id="viewApplications">
+        <div class="stats-grid">
+          <div class="stat-card highlight">
+            <div class="stat-label">Total Applied</div>
+            <div class="stat-value" id="statTotal">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Interviewing</div>
+            <div class="stat-value" id="statInterviewing">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Offers</div>
+            <div class="stat-value" id="statOffer">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Rejected</div>
+            <div class="stat-value" id="statRejected">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Streak</div>
+            <div class="stat-value" id="statStreak">—</div>
+          </div>
+        </div>
+
+        <div class="filters-bar">
+          <input
+            class="filter-input"
+            type="text"
+            id="filterCompany"
+            placeholder="🔍 Search company…"
+            oninput="applyFilters()"
+          />
+          <select
+            class="filter-select"
+            id="filterStatus"
+            onchange="applyFilters()"
+          >
+            <option value="">All Statuses</option>
+            <option value="applied">Applied</option>
+            <option value="screening">Screening</option>
+            <option value="interviewing">Interviewing</option>
+            <option value="offer">Offer</option>
+            <option value="rejected">Rejected</option>
+            <option value="withdrawn">Withdrawn</option>
           </select>
-          <button class="btn btn-primary" onclick="linkContact()">Link</button>
+          <select
+            class="filter-select"
+            id="filterSource"
+            onchange="applyFilters()"
+          >
+            <option value="">All Sources</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="company_website">Company Website</option>
+            <option value="referral">Referral</option>
+            <option value="job_board">Job Board</option>
+            <option value="recruiter">Recruiter</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Source</th>
+                <th>Date Applied</th>
+                <th>Contacts</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="appTableBody">
+              <tr class="loading-row">
+                <td colspan="7"><span class="spinner"></span> Loading…</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <details class="contacts-new-section">
-        <summary>+ Add a new contact directly</summary>
-        <div class="form-grid" style="margin-top:14px">
-          <div class="form-group">
-            <label class="form-label">Name *</label>
-            <input class="form-control" id="newContactName" placeholder="Jane Smith" />
+      <div id="viewStats" class="hidden">
+        <div class="stats-grid" style="margin-bottom: 28px">
+          <div class="stat-card highlight">
+            <div class="stat-label">Total Applications</div>
+            <div class="stat-value" id="s_total">—</div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-control" id="newContactEmail" placeholder="jane@company.com" />
+          <div class="stat-card">
+            <div class="stat-label">Response Rate</div>
+            <div class="stat-value" id="s_responseRate">—</div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Their Role</label>
-            <input class="form-control" id="newContactRole" placeholder="Hiring Manager" />
+          <div class="stat-card">
+            <div class="stat-label">Rejection Rate</div>
+            <div class="stat-value" id="s_rejectionRate">—</div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Met At</label>
-            <select class="form-control" id="newContactMetAt">
-              <option value="linkedin">LinkedIn</option>
-              <option value="career_fair">Career Fair</option>
-              <option value="meetup">Meetup</option>
-              <option value="referral">Referral</option>
-              <option value="cold_outreach">Cold Outreach</option>
-              <option value="other">Other</option>
-            </select>
+          <div class="stat-card">
+            <div class="stat-label">Offer Rate</div>
+            <div class="stat-value" id="s_offerRate">—</div>
           </div>
-          <div class="form-group full">
-            <label class="form-label">Notes</label>
-            <textarea class="form-control" id="newContactNotes" rows="2" placeholder="How you met, what you discussed…"></textarea>
+          <div class="stat-card">
+            <div class="stat-label">Longest Streak</div>
+            <div class="stat-value" id="s_longestStreak">—</div>
           </div>
         </div>
-        <div style="display:flex;justify-content:flex-end;margin-top:12px">
-          <button class="btn btn-primary" onclick="addNewContact()">Add & Link Contact</button>
-        </div>
-      </details>
 
-      <div class="modal-footer">
-        <button class="btn btn-ghost" onclick="closeModal('contactsOverlay')">Close</button>
+        <div class="stats-two-col">
+          <div class="stats-panel">
+            <div class="stats-panel-title">Applications by Status</div>
+            <div id="statusBreakdown" class="breakdown-list"></div>
+          </div>
+
+          <div class="stats-panel">
+            <div class="stats-panel-title">Avg. Days to Reach Stage</div>
+            <div id="avgDaysBreakdown" class="breakdown-list"></div>
+          </div>
+
+          <div class="stats-panel">
+            <div class="stats-panel-title">Applications by Source</div>
+            <div id="sourceBreakdown" class="breakdown-list"></div>
+          </div>
+
+          <div class="stats-panel">
+            <div class="stats-panel-title">Applications Over Time</div>
+            <div id="timelineChart" class="timeline-chart"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="modal-overlay"
+      id="modalOverlay"
+      onclick="closeModalOnBackdrop(event, 'modalOverlay')"
+    >
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Add Application</h2>
+          <button class="close-btn" onclick="closeModal('modalOverlay')">
+            ✕
+          </button>
+        </div>
+        <form id="appForm" onsubmit="handleSubmit(event)">
+          <input type="hidden" id="editId" />
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Company *</label>
+              <input
+                class="form-control"
+                id="fCompany"
+                placeholder="Acme Corp"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role *</label>
+              <input
+                class="form-control"
+                id="fRole"
+                placeholder="Software Engineer"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-control" id="fStatus">
+                <option value="applied">Applied</option>
+                <option value="screening">Screening</option>
+                <option value="interviewing">Interviewing</option>
+                <option value="offer">Offer</option>
+                <option value="rejected">Rejected</option>
+                <option value="withdrawn">Withdrawn</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Source</label>
+              <select class="form-control" id="fSource">
+                <option value="linkedin">LinkedIn</option>
+                <option value="company_website">Company Website</option>
+                <option value="referral">Referral</option>
+                <option value="job_board">Job Board</option>
+                <option value="recruiter">Recruiter</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date Applied *</label>
+              <input class="form-control" type="date" id="fDate" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Salary Range</label>
+              <input
+                class="form-control"
+                id="fSalary"
+                placeholder="e.g. 90k–120k"
+              />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Notes</label>
+              <textarea
+                class="form-control"
+                id="fNotes"
+                rows="3"
+                placeholder="Any notes about the role, recruiter, etc."
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-ghost"
+              onclick="closeModal('modalOverlay')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              Save Application
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-  </div>
 
-  <div class="toast" id="toast"></div>
+    <div
+      class="modal-overlay"
+      id="contactsOverlay"
+      onclick="closeModalOnBackdrop(event, 'contactsOverlay')"
+    >
+      <div class="modal modal-wide">
+        <div class="modal-header">
+          <div>
+            <h2 class="modal-title" id="contactsModalTitle">Contacts</h2>
+            <p class="modal-subtitle" id="contactsModalSub"></p>
+          </div>
+          <button class="close-btn" onclick="closeModal('contactsOverlay')">
+            ✕
+          </button>
+        </div>
 
-  <script src="../js/api.js"></script>
-  <script src="../js/tracker.js"></script>
-</body>
+        <div id="contactsList" class="contacts-list"></div>
+
+        <div class="contacts-add-section">
+          <div class="contacts-add-title">Link a Network Contact</div>
+          <div class="contacts-add-row">
+            <select class="form-control" id="contactPickerSelect">
+              <option value="">— Choose from your network —</option>
+            </select>
+            <button class="btn btn-primary" onclick="linkContact()">
+              Link
+            </button>
+          </div>
+        </div>
+
+        <details class="contacts-new-section">
+          <summary>+ Add a new contact directly</summary>
+          <div class="form-grid" style="margin-top: 14px">
+            <div class="form-group">
+              <label class="form-label">Name *</label>
+              <input
+                class="form-control"
+                id="newContactName"
+                placeholder="Jane Smith"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input
+                class="form-control"
+                id="newContactEmail"
+                placeholder="jane@company.com"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Their Role</label>
+              <input
+                class="form-control"
+                id="newContactRole"
+                placeholder="Hiring Manager"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Met At</label>
+              <select class="form-control" id="newContactMetAt">
+                <option value="linkedin">LinkedIn</option>
+                <option value="career_fair">Career Fair</option>
+                <option value="meetup">Meetup</option>
+                <option value="referral">Referral</option>
+                <option value="cold_outreach">Cold Outreach</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Notes</label>
+              <textarea
+                class="form-control"
+                id="newContactNotes"
+                rows="2"
+                placeholder="How you met, what you discussed…"
+              ></textarea>
+            </div>
+          </div>
+          <div
+            style="display: flex; justify-content: flex-end; margin-top: 12px"
+          >
+            <button class="btn btn-primary" onclick="addNewContact()">
+              Add & Link Contact
+            </button>
+          </div>
+        </details>
+
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('contactsOverlay')">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/tracker.js"></script>
+  </body>
 </html>
