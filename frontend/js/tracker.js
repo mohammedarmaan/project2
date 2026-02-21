@@ -97,7 +97,7 @@ function renderTable(apps) {
     const contactCount = (app.contacts || []).length;
     const pillClass    = contactCount > 0 ? 'contacts-pill' : 'contacts-pill empty';
     const pillLabel    = contactCount > 0
-      ? `🤝 ${contactCount} contact${contactCount > 1 ? 's' : ''}`
+      ? `${contactCount} contact${contactCount > 1 ? 's' : ''}`
       : '+ Link contact';
 
     return `<tr>

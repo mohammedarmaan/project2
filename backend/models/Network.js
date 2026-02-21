@@ -26,7 +26,7 @@ export const createNetworkContact = async (contactData) => {
 
   if (contactData.metAt && !VALID_MET_AT.includes(contactData.metAt)) {
     throw new Error(
-      `Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`,
+      `Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`
     );
   }
 
@@ -93,7 +93,7 @@ export const updateNetworkContact = async (contactId, userId, updateData) => {
 
   if (updateData.metAt && !VALID_MET_AT.includes(updateData.metAt)) {
     throw new Error(
-      `Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`,
+      `Invalid metAt. Must be one of: ${VALID_MET_AT.join(", ")}`
     );
   }
 
@@ -135,7 +135,7 @@ export const updateNetworkContact = async (contactId, userId, updateData) => {
     .collection("network")
     .updateOne(
       { _id: new ObjectId(contactId), userId: userIdMatch },
-      { $set: update },
+      { $set: update }
     );
 
   if (updateResult.matchedCount === 0) {

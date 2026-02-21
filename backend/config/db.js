@@ -17,7 +17,7 @@ export const connectDB = async () => {
       .collection("applications")
       .createIndex(
         { userId: 1, company: 1, role: 1, dateApplied: 1 },
-        { unique: true },
+        { unique: true }
       );
     await db.collection("applications").createIndex({ status: 1 });
     await db.collection("applications").createIndex({ source: 1 });

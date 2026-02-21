@@ -18,7 +18,7 @@ export const logApplicationUpdated = async (
   applicationId,
   entityName,
   oldData,
-  newData,
+  newData
 ) => {
   const changes = [];
   const changedFields = [];
@@ -90,7 +90,7 @@ export const logApplicationUpdated = async (
 export const logApplicationDeleted = async (
   userId,
   applicationId,
-  entityName,
+  entityName
 ) => {
   const summary = `Deleted ${entityName} application`;
 

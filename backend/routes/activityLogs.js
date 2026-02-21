@@ -17,7 +17,7 @@ router.get("/applications", async (req, res) => {
   try {
     const logs = await findActivityLogsByEntityType(
       req.session.userId,
-      "application",
+      "application"
     );
     res.json({ logs });
   } catch (error) {
@@ -31,7 +31,7 @@ router.get("/network", async (req, res) => {
   try {
     const logs = await findActivityLogsByEntityType(
       req.session.userId,
-      "network",
+      "network"
     );
     res.json({ logs });
   } catch (error) {
@@ -75,7 +75,7 @@ router.put("/:id", async (req, res) => {
     const log = await updateActivityLogNote(
       req.params.id,
       req.session.userId,
-      userNote,
+      userNote
     );
 
     if (!log) {

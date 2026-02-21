@@ -74,7 +74,6 @@ function renderCards(contacts) {
   if (!contacts.length) {
     grid.innerHTML = `
       <div class="empty-state">
-        <div class="emoji">🤝</div>
         <h3>No contacts yet</h3>
         <p>Build your network by adding your first contact.</p>
         <button class="btn btn-primary" onclick="openAddModal()">+ Add Contact</button>

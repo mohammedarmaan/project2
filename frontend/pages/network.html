@@ -1,197 +1,256 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Momentum — Network</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/shared.css">
-  <link rel="stylesheet" href="../css/network.css">
-</head>
-<body>
-
-  <nav class="sidebar">
-    <div class="brand">
-      <div class="brand-icon">🧭</div>
-      <span class="brand-name">Momentum</span>
-    </div>
-
-    <div class="nav-section">Career</div>
-    <a href="/tracker" title="tracker.html lives in your friend's repo" class="nav-item">
-      <span class="icon">📋</span> Applications
-    </a>
-    <a href="/network" class="nav-item active">
-      <span class="icon">🤝</span> Network
-    </a>
-
-    <div class="nav-bottom">
-      <div class="user-card">
-        <div class="user-avatar" id="userAvatar">—</div>
-        <div class="user-info">
-          <div class="user-name" id="userName">Loading…</div>
-          <div class="user-role">Job Seeker</div>
-        </div>
-      </div>
-      <button class="logout-btn"><span>↩</span> Sign Out</button>
-    </div>
-  </nav>
-
-  <main class="main">
-
-    <div class="page-header">
-      <h1 class="page-title">Network <span id="contactCount"></span></h1>
-      <button class="btn btn-primary" onclick="openAddModal()">+ Add Contact</button>
-    </div>
-
-    <div class="page-tabs">
-      <button class="page-tab active" id="tabContacts" onclick="switchPageTab('contacts')">🤝 Contacts</button>
-      <button class="page-tab"        id="tabStats"    onclick="switchPageTab('stats')">📊 Statistics</button>
-    </div>
-
-
-    <div id="viewContacts">
-
-      <div class="stats-grid">
-        <div class="stat-card highlight">
-          <div class="stat-label">Total Contacts</div>
-          <div class="stat-value" id="statTotal">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Via LinkedIn</div>
-          <div class="stat-value" id="statLinkedIn">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Referrals</div>
-          <div class="stat-value" id="statReferral">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Career Fairs</div>
-          <div class="stat-value" id="statFair">—</div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momentum — Network</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/shared.css" />
+    <link rel="stylesheet" href="../css/network.css" />
+  </head>
+  <body>
+    <nav class="sidebar">
+      <div class="brand">
+        <div class="brand-icon"></div>
+        <span class="brand-name">Momentum</span>
       </div>
 
-      <div class="filters-bar">
-        <input class="filter-input"  type="text" id="filterName"    placeholder="🔍 Search name…"    oninput="applyFilters()" />
-        <input class="filter-input"  type="text" id="filterCompany" placeholder="🏢 Search company…" oninput="applyFilters()" />
-        <select class="filter-select" id="filterMetAt" onchange="applyFilters()">
-          <option value="">All Sources</option>
-          <option value="linkedin">LinkedIn</option>
-          <option value="career_fair">Career Fair</option>
-          <option value="meetup">Meetup</option>
-          <option value="referral">Referral</option>
-          <option value="cold_outreach">Cold Outreach</option>
-          <option value="other">Other</option>
-        </select>
+      <div class="nav-section">Career</div>
+      <a
+        href="/tracker"
+        title="tracker.html lives in your friend's repo"
+        class="nav-item"
+      >
+        Applications
+      </a>
+      <a href="/network" class="nav-item active"> Network </a>
+
+      <div class="nav-bottom">
+        <div class="user-card">
+          <div class="user-avatar" id="userAvatar">—</div>
+          <div class="user-info">
+            <div class="user-name" id="userName">Loading…</div>
+            <div class="user-role">Job Seeker</div>
+          </div>
+        </div>
+        <button class="logout-btn"><span>↩</span> Sign Out</button>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="page-header">
+        <h1 class="page-title">Network <span id="contactCount"></span></h1>
+        <button class="btn btn-primary" onclick="openAddModal()">
+          + Add Contact
+        </button>
       </div>
 
-      <div class="contacts-grid" id="contactsGrid">
-        <div class="loading-placeholder">⏳ Loading contacts…</div>
+      <div class="page-tabs">
+        <button
+          class="page-tab active"
+          id="tabContacts"
+          onclick="switchPageTab('contacts')"
+        >
+          Contacts
+        </button>
+        <button class="page-tab" id="tabStats" onclick="switchPageTab('stats')">
+          Statistics
+        </button>
+      </div>
+
+      <div id="viewContacts">
+        <div class="stats-grid">
+          <div class="stat-card highlight">
+            <div class="stat-label">Total Contacts</div>
+            <div class="stat-value" id="statTotal">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Via LinkedIn</div>
+            <div class="stat-value" id="statLinkedIn">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Referrals</div>
+            <div class="stat-value" id="statReferral">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Career Fairs</div>
+            <div class="stat-value" id="statFair">—</div>
+          </div>
+        </div>
+
+        <div class="filters-bar">
+          <input
+            class="filter-input"
+            type="text"
+            id="filterName"
+            placeholder="Search name…"
+            oninput="applyFilters()"
+          />
+          <input
+            class="filter-input"
+            type="text"
+            id="filterCompany"
+            placeholder="Search company…"
+            oninput="applyFilters()"
+          />
+          <select
+            class="filter-select"
+            id="filterMetAt"
+            onchange="applyFilters()"
+          >
+            <option value="">All Sources</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="career_fair">Career Fair</option>
+            <option value="meetup">Meetup</option>
+            <option value="referral">Referral</option>
+            <option value="cold_outreach">Cold Outreach</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="contacts-grid" id="contactsGrid">
+          <div class="loading-placeholder">⏳ Loading contacts…</div>
+        </div>
+      </div>
+
+      <div id="viewStats" class="hidden">
+        <div class="stats-grid" style="margin-bottom: 28px">
+          <div class="stat-card highlight">
+            <div class="stat-label">Total Contacts</div>
+            <div class="stat-value" id="s_total">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Companies</div>
+            <div class="stat-value" id="s_companies">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Top Source</div>
+            <div class="stat-value" id="s_topSource">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Follow-ups Due</div>
+            <div class="stat-value" id="s_followups">—</div>
+          </div>
+        </div>
+
+        <div class="stats-two-col">
+          <div class="stats-panel">
+            <div class="stats-panel-title">Contacts per Company</div>
+            <div id="companyBreakdown" class="breakdown-list"></div>
+          </div>
+
+          <div class="stats-panel">
+            <div class="stats-panel-title">Contacts by Meeting Source</div>
+            <div id="metAtBreakdown" class="breakdown-list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="modal-overlay"
+      id="modalOverlay"
+      onclick="closeModalOnBackdrop(event, 'modalOverlay')"
+    >
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Add Contact</h2>
+          <button class="close-btn" onclick="closeModal('modalOverlay')">
+            ✕
+          </button>
+        </div>
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <input type="hidden" id="editId" />
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Name *</label>
+              <input
+                class="form-control"
+                id="fName"
+                placeholder="Jane Smith"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input
+                class="form-control"
+                type="email"
+                id="fEmail"
+                placeholder="jane@company.com"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company</label>
+              <input
+                class="form-control"
+                id="fCompany"
+                placeholder="Acme Corp"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Their Role</label>
+              <input
+                class="form-control"
+                id="fRole"
+                placeholder="Engineering Manager"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Met At</label>
+              <select class="form-control" id="fMetAt">
+                <option value="linkedin">LinkedIn</option>
+                <option value="career_fair">Career Fair</option>
+                <option value="meetup">Meetup</option>
+                <option value="referral">Referral</option>
+                <option value="cold_outreach">Cold Outreach</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Met Date</label>
+              <input class="form-control" type="date" id="fMetDate" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Follow-Up Date</label>
+              <input class="form-control" type="date" id="fFollowUp" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Contacted</label>
+              <input class="form-control" type="date" id="fLastContacted" />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Notes</label>
+              <textarea
+                class="form-control"
+                id="fNotes"
+                rows="3"
+                placeholder="Context, conversation highlights, next steps…"
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-ghost"
+              onclick="closeModal('modalOverlay')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              Save Contact
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 
-    <div id="viewStats" class="hidden">
+    <div class="toast" id="toast"></div>
 
-      <div class="stats-grid" style="margin-bottom:28px">
-        <div class="stat-card highlight">
-          <div class="stat-label">Total Contacts</div>
-          <div class="stat-value" id="s_total">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Companies</div>
-          <div class="stat-value" id="s_companies">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Top Source</div>
-          <div class="stat-value" id="s_topSource">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Follow-ups Due</div>
-          <div class="stat-value" id="s_followups">—</div>
-        </div>
-      </div>
-
-      <div class="stats-two-col">
-
-        <div class="stats-panel">
-          <div class="stats-panel-title">Contacts per Company</div>
-          <div id="companyBreakdown" class="breakdown-list"></div>
-        </div>
-
-        <div class="stats-panel">
-          <div class="stats-panel-title">Contacts by Meeting Source</div>
-          <div id="metAtBreakdown" class="breakdown-list"></div>
-        </div>
-
-      </div>
-    </div>
-
-  </main>
-
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBackdrop(event,'modalOverlay')">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle">Add Contact</h2>
-        <button class="close-btn" onclick="closeModal('modalOverlay')">✕</button>
-      </div>
-      <form id="contactForm" onsubmit="handleSubmit(event)">
-        <input type="hidden" id="editId" />
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Name *</label>
-            <input class="form-control" id="fName" placeholder="Jane Smith" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-control" type="email" id="fEmail" placeholder="jane@company.com" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Company</label>
-            <input class="form-control" id="fCompany" placeholder="Acme Corp" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Their Role</label>
-            <input class="form-control" id="fRole" placeholder="Engineering Manager" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Met At</label>
-            <select class="form-control" id="fMetAt">
-              <option value="linkedin">LinkedIn</option>
-              <option value="career_fair">Career Fair</option>
-              <option value="meetup">Meetup</option>
-              <option value="referral">Referral</option>
-              <option value="cold_outreach">Cold Outreach</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Met Date</label>
-            <input class="form-control" type="date" id="fMetDate" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Follow-Up Date</label>
-            <input class="form-control" type="date" id="fFollowUp" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Last Contacted</label>
-            <input class="form-control" type="date" id="fLastContacted" />
-          </div>
-          <div class="form-group full">
-            <label class="form-label">Notes</label>
-            <textarea class="form-control" id="fNotes" rows="3"
-              placeholder="Context, conversation highlights, next steps…"></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-ghost" onclick="closeModal('modalOverlay')">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="submitBtn">Save Contact</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-
-  <script src="../js/api.js"></script>
-  <script src="../js/network.js"></script>
-</body>
+    <script src="../js/api.js"></script>
+    <script src="../js/network.js"></script>
+  </body>
 </html>

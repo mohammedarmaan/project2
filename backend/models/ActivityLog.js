@@ -45,7 +45,7 @@ export const updateActivityLogNote = async (logId, userId, userNote) => {
     .findOneAndUpdate(
       { _id: new ObjectId(logId), userId },
       { $set: { userNote } },
-      { returnDocument: "after" },
+      { returnDocument: "after" }
     );
   return result;
 };

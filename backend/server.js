@@ -29,7 +29,7 @@ app.use(
       }
     },
     credentials: true,
-  }),
+  })
 );
 
 app.use(express.json());
@@ -58,7 +58,7 @@ const startServer = async () => {
           // sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
           //hardcoding instead coz its not working idk why
         },
-      }),
+      })
     );
 
     app.use("/api/auth", authRoutes);

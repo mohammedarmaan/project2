@@ -1,91 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Momentum — Sign In</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/auth.css">
-</head>
-<body>
-
-  <div class="panel-left">
-    <div class="brand">
-      <div class="brand-icon">🧭</div>
-      <span class="brand-name">Momentum</span>
-    </div>
-
-    <div class="hero-text">
-      <div class="gold-rule"></div>
-      <h1 class="hero-title">Track your career<br>journey with <span>precision</span></h1>
-      <p class="hero-subtitle">Monitor every application, build your network, and turn your job search into a disciplined process.</p>
-    </div>
-
-    <div class="stat-row">
-      <div class="stat">
-        <span class="stat-number">3×</span>
-        <span class="stat-label">Faster Search</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momentum — Sign In</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <div class="panel-left">
+      <div class="brand">
+        <span class="brand-name">Momentum</span>
       </div>
-      <div class="stat">
-        <span class="stat-number">100%</span>
-        <span class="stat-label">Organized</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">0</span>
-        <span class="stat-label">Missed Follow-ups</span>
-      </div>
-    </div>
-  </div>
 
-  <div class="panel-right">
-    <div class="form-wrapper">
-
-      <div class="form-header">
+      <div class="hero-text">
         <div class="gold-rule"></div>
-        <h2 class="form-title" id="formTitle">Welcome back</h2>
-        <p class="form-subtitle" id="formSubtitle">Sign in to your account to continue</p>
+        <h1 class="hero-title">
+          Track your career<br />journey with <span>precision</span>
+        </h1>
+        <p class="hero-subtitle">
+          Monitor every application, build your network, and turn your job
+          search into a disciplined process.
+        </p>
       </div>
 
-      <div class="tabs">
-        <button class="tab active" id="loginTab"    onclick="switchTab('login')">Sign In</button>
-        <button class="tab"        id="registerTab" onclick="switchTab('register')">Register</button>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-number">3×</span>
+          <span class="stat-label">Faster Search</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Organized</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Missed Follow-ups</span>
+        </div>
       </div>
-
-      <form id="loginForm" onsubmit="handleLogin(event)">
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="loginEmail" placeholder="you@company.com" required />
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" required />
-        </div>
-        <button type="submit" class="submit-btn" id="loginBtn">Sign In</button>
-        <div class="message" id="loginMsg"></div>
-      </form>
-
-      <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="regName" placeholder="Alex Johnson" required />
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="regEmail" placeholder="you@company.com" required />
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="regPassword" placeholder="Min 8 characters" required />
-        </div>
-        <button type="submit" class="submit-btn" id="registerBtn">Create Account</button>
-        <div class="message" id="registerMsg"></div>
-      </form>
-
-      <div class="divider">Momentum Career Platform</div>
     </div>
-  </div>
 
-  <script src="js/api.js"></script>
-  <script src="js/auth.js"></script>
-</body>
+    <div class="panel-right">
+      <div class="form-wrapper">
+        <div class="form-header">
+          <div class="gold-rule"></div>
+          <h2 class="form-title" id="formTitle">Welcome back</h2>
+          <p class="form-subtitle" id="formSubtitle">
+            Sign in to your account to continue
+          </p>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" id="loginTab" onclick="switchTab('login')">
+            Sign In
+          </button>
+          <button class="tab" id="registerTab" onclick="switchTab('register')">
+            Register
+          </button>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="you@company.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn" id="loginBtn">
+            Sign In
+          </button>
+          <div class="message" id="loginMsg"></div>
+        </form>
+
+        <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input
+              type="text"
+              id="regName"
+              placeholder="Alex Johnson"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              id="regEmail"
+              placeholder="you@company.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="regPassword"
+              placeholder="Min 8 characters"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn" id="registerBtn">
+            Create Account
+          </button>
+          <div class="message" id="registerMsg"></div>
+        </form>
+
+        <div class="divider">Momentum Career Platform</div>
+      </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
 </html>

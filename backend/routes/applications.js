@@ -56,7 +56,7 @@ router.get("/", async (req, res) => {
 
     const applications = await findApplicationsByUserId(
       req.session.userId,
-      filters,
+      filters
     );
     res.json({ applications });
   } catch (error) {
@@ -70,7 +70,7 @@ router.get("/:id", async (req, res) => {
   try {
     const application = await findApplicationById(
       req.params.id,
-      req.session.userId,
+      req.session.userId
     );
 
     if (!application) {
@@ -141,7 +141,7 @@ router.put("/:id", async (req, res) => {
     // Get old data first
     const oldApplication = await findApplicationById(
       req.params.id,
-      req.session.userId,
+      req.session.userId
     );
 
     if (!oldApplication) {
@@ -173,7 +173,7 @@ router.put("/:id", async (req, res) => {
     const application = await updateApplication(
       req.params.id,
       req.session.userId,
-      updates,
+      updates
     );
 
     if (!application) {
@@ -187,7 +187,7 @@ router.put("/:id", async (req, res) => {
       req.params.id,
       entityName,
       oldApplication,
-      application,
+      application
     );
 
     res.json({
@@ -210,7 +210,7 @@ router.delete("/:id", async (req, res) => {
     // Get application data before deleting for logging
     const application = await findApplicationById(
       req.params.id,
-      req.session.userId,
+      req.session.userId
     );
 
     if (!application) {

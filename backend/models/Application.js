@@ -20,7 +20,7 @@ export const createApplication = async (applicationData) => {
     !VALID_STATUSES.includes(applicationData.status)
   ) {
     throw new Error(
-      `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}`,
+      `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}`
     );
   }
 
@@ -45,7 +45,7 @@ export const createApplication = async (applicationData) => {
   } catch (error) {
     if (error.code === 11000) {
       throw new Error(
-        "Duplicate application: You already applied to this role at this company on this date",
+        "Duplicate application: You already applied to this role at this company on this date"
       );
     }
     throw error;
@@ -87,7 +87,7 @@ export const updateApplication = async (applicationId, userId, updateData) => {
   // validation for status
   if (updateData.status && !VALID_STATUSES.includes(updateData.status)) {
     throw new Error(
-      `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}`,
+      `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}`
     );
   }
 
@@ -107,7 +107,7 @@ export const updateApplication = async (applicationId, userId, updateData) => {
     .findOneAndUpdate(
       { _id: new ObjectId(applicationId), userId },
       { $set: update },
-      { returnDocument: "after" },
+      { returnDocument: "after" }
     );
 
   return result;
@@ -233,7 +233,7 @@ export const getApplicationStreak = async (userId) => {
   // Convert to date strings (YYYY-MM-DD) and remove duplicates
   const uniqueDates = [
     ...new Set(
-      applications.map((app) => app.dateApplied.toISOString().split("T")[0]),
+      applications.map((app) => app.dateApplied.toISOString().split("T")[0])
     ),
   ]
     .sort()
@@ -255,7 +255,7 @@ export const getApplicationStreak = async (userId) => {
       const prevDate = new Date(uniqueDates[i - 1]);
       const currDate = new Date(uniqueDates[i]);
       const diffDays = Math.round(
-        (prevDate - currDate) / (1000 * 60 * 60 * 24),
+        (prevDate - currDate) / (1000 * 60 * 60 * 24)
       );
 
       if (diffDays === 1) {

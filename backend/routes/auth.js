@@ -24,10 +24,14 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Invalid email format" });
     }
     if (!validatePassword(password)) {
-      return res.status(400).json({ error: "Password must be at least 8 characters" });
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters" });
     }
     if (!validateName(name)) {
-      return res.status(400).json({ error: "Name must be at least 2 characters" });
+      return res
+        .status(400)
+        .json({ error: "Name must be at least 2 characters" });
     }
 
     const existingUser = await findUserByEmail(email);
