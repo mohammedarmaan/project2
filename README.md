@@ -219,6 +219,10 @@ npm run lint
 | GET | /api/network/stats | Aggregated stats |
 
 ---
+1000 records in the mongoDB collection (Applications)
+<img width="1474" height="1003" alt="image" src="https://github.com/user-attachments/assets/953867a2-4dc0-4e6c-ac77-04ae2b410c36" />
+
+---
 
 ## GenAI Tools Usage
 
